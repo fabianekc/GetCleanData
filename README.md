@@ -69,7 +69,7 @@ This section describes the steps performed in run_analysis.R.
        header names as provided in _features.txt_ but reformatted in the following
        way:
 
-         * any special characters (<code>_()</code>) are removed
+         * any special characters <code>-()</code>   are removed
 
          * "mean" is replaced by "Mean"
 
@@ -80,36 +80,36 @@ This section describes the steps performed in run_analysis.R.
 5. Task 2: extracts only the measurements on the mean and standard deviation
    for each measurement
 
-Since column names are already available we can extract now the relevant columns
-by subsetting the data frame using string comparison:
+  Since column names are already available we can extract now the relevant columns
+  by subsetting the data frame using string comparison:
 
- * since only measurement are relevant, only columns starting with
-   <code>t</code> are used
+   * since only measurement are relevant, only columns starting with
+     <code>t</code> are used
 
- * next we filter for mean and standard deviation
+   * next we filter for mean and standard deviation
 
- * and finally we need to include the activity and subject columns
+   * and finally we need to include the activity and subject columns
 
-all this put together leads to the following regular expression:
-<code>(^t.*(Sd|Mean))|(activity|subject)</code>
+  all this put together leads to the following regular expression:
+  <code>(^t.*(Sd|Mean))|(activity|subject)</code>
 
 
 6. Task 3: uses descriptive activity names to name the activities in the data
    set
 
-This is simply done by replacing the activity ids with the actual names provided
-in _activity_lables.txt_ using <code>factor</code>.
+  This is simply done by replacing the activity ids with the actual names provided
+  in _activity_lables.txt_ using <code>factor</code>.
 
 
 7. Task 5: writes tidy data set with the average of each variable for each
    activity & subject
 
-The package <code>dplyr</code> provides here an elegant way to group the data
-set by subject and activity and calculate then mean and standard deviation.
-Since the instructions state that the tidy data set can be either in wide or
-long form and <code>dplyr</code> already provides everything in a wide form the
-output is directly written with <code>write.table</code>.
+  The package <code>dplyr</code> provides here an elegant way to group the data
+  set by subject and activity and calculate then mean and standard deviation.
+  Since the instructions state that the tidy data set can be either in wide or
+  long form and <code>dplyr</code> already provides everything in a wide form the
+  output is directly written with <code>write.table</code>.
 
-(Note: I have read the forum posts arguing why the long form is better but
-  converting the result in an additional step does not add any value in my
-  opinion - I hope you agree :-) )
+  (Note: I have read the forum posts arguing why the long form is better but
+    converting the result in an additional step does not add any value in my
+    opinion - I hope you agree :-) )
