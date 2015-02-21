@@ -7,6 +7,8 @@ Cleaning Data (3rd part of the Data Science specialization on Coursera).
 * README.md: this general description
 * codebook.md: documentation of all variables in the output
 * run_analysis.R: R script that processes the Samsung data set
+* fuci2.txt: resulting tidy data set from running run_analysis.R
+
 
 #### Analysis Documentation ####
 This section describes the steps performed in run_analysis.R.
@@ -83,15 +85,9 @@ This section describes the steps performed in run_analysis.R.
   Since column names are already available we can extract now the relevant columns
   by subsetting the data frame using string comparison:
 
-   * since only measurement are relevant, only columns starting with
-     <code>t</code> are used
+   * filter for mean and standard deviation
 
-   * next we filter for mean and standard deviation
-
-   * and finally we need to include the activity and subject columns
-
-  all this put together leads to the following regular expression:
-  <code>(^t.*(Sd|Mean))|(activity|subject)</code>
+   * and include the activity and subject columns
 
 
 6. Task 3: uses descriptive activity names to name the activities in the data
