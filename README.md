@@ -13,68 +13,68 @@ This section describes the steps performed in run_analysis.R.
 
 1. Download & Extract Data
 
-This section is optional and includes the steps to download and unzip the
-Samsung data into the sub directory _data_.
+  This section is optional and includes the steps to download and unzip the
+  Samsung data into the sub directory _data_.
 
 
 2. Read Data Into R data.tables
 
-This section assumes that the Samsung data set is in the sub directory _data_
-of the working directory and loads the following fragments:
+  This section assumes that the Samsung data set is in the sub directory _data_
+  of the working directory and loads the following fragments:
 
- * activity_names: name of the six activities from
-   _UCI HAR Dataset/activity_labels.txt_
+   * activity_names: name of the six activities from
+     _UCI HAR Dataset/activity_labels.txt_
 
- * header_names: original variable names from _UCI HAR Dataset/features.txt_
+   * header_names: original variable names from _UCI HAR Dataset/features.txt_
 
- * test data set
+   * test data set
 
-   * test_subject: identification of each subject for each observation in the
-      test data set from _UCI HAR Dataset/test/subject_test.txt_
+     * test_subject: identification of each subject for each observation in the
+        test data set from _UCI HAR Dataset/test/subject_test.txt_
 
-   * test_data: actual data from _UCI HAR Dataset/test/X_test.txt_
+     * test_data: actual data from _UCI HAR Dataset/test/X_test.txt_
 
-   * test_activity: identification of the activity for each observation in the
-       test data set from _UCI HAR Dataset/test/y_test.txt_
+     * test_activity: identification of the activity for each observation in the
+         test data set from _UCI HAR Dataset/test/y_test.txt_
 
- * trainig data set
+   * trainig data set
 
-   * train_subject: identification of each subject for each observation in the
-      training data set from _UCI HAR Dataset/test/subject_train.txt_
+     * train_subject: identification of each subject for each observation in the
+        training data set from _UCI HAR Dataset/test/subject_train.txt_
 
-   * train_data: actual data from _UCI HAR Dataset/train/X_train.txt_
+     * train_data: actual data from _UCI HAR Dataset/train/X_train.txt_
 
-   * train_activity: identification of the activity for each observation in the
-       training data set from _UCI HAR Dataset/train/y_train.txt_
+     * train_activity: identification of the activity for each observation in the
+         training data set from _UCI HAR Dataset/train/y_train.txt_
 
 
 3. Task 1: merges the training and the test sets to create one data set
 
-A complete set consits of subject id, activity number, and actual data. Those
-three items are combined with <code>cbind</code> and afterwards the complete
-test and training set are merged with <code>rbind</code>.
+  A complete set consits of subject id, activity number, and actual data. Those
+  three items are combined with <code>cbind</code> and afterwards the complete
+  test and training set are merged with <code>rbind</code>.
 
 
 4. Task 4: appropriately labels the data set with descriptive variable names
 
-Task 4 is moved right after task 1 to have header names available for filtering
-the columns in task 2. Here is a short description of the used column names
-(for a detailed description look at the codebook):
+  Task 4 is moved right after task 1 to have header names available for filtering
+  the columns in task 2. Here is a short description of the used column names
+  (for a detailed description look at the codebook):
 
-  1. subject: unique id for each of the 30 subjects
+    1. subject: unique id for each of the 30 subjects
 
-  2. activity: identifies on of the six activities
+    2. activity: identifies on of the six activities
 
-  3. all following columns: data as provided in the original data using the
-     header names as provided in _features.txt_ but reformatted in the following
-     way:
+    3. all following columns: data as provided in the original data using the
+       header names as provided in _features.txt_ but reformatted in the following
+       way:
 
-       * any special characters (<code>_()</code>) are removed
+         * any special characters (<code>_()</code>) are removed
 
-       * "mean" is replaced by "Mean"
+         * "mean" is replaced by "Mean"
 
-       * "std" for standard deviation is replaced by "Sd" (following the R
-         Syntax)
+         * "std" for standard deviation is replaced by "Sd" (following the R
+           Syntax)
 
 
 5. Task 2: extracts only the measurements on the mean and standard deviation
