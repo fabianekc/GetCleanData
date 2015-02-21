@@ -1,11 +1,11 @@
-setwd("~/Documents/coursera/datasciencecoursera/cleaningData")
+#setwd("~/Documents/coursera/datasciencecoursera/cleaningData")
 
 # download & extract data
 if(!file.exists("data")){dir.create("data")}
 fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-#download.file(fileUrl,destfile="./data/fuci.zip",method="curl")
+download.file(fileUrl,destfile="./data/fuci.zip",method="curl")
 dateDownloaded <- date()
-#unzip("./data/fuci.zip", exdir="./data/")
+unzip("./data/fuci.zip", exdir="./data/")
 
 # read data into R data.tables
 activity_names <- read.table("./data/UCI HAR Dataset/activity_labels.txt")
@@ -23,15 +23,29 @@ train_set <- cbind(train_subject,train_activity, train_data)
 data <- rbind(test_set, train_set)
 
 # 4) Appropriately labels the data set with descriptive variable names.
+#    (task 4 is moved to the beginning to use header names later for filtering
+#    columns)
+#    - the first 2 columns will be subject and activity
 my_headers <- data.frame(V1=c(0, 0),V2=c("subject", "activity"))
-names(data)<-rbind(my_headers, header_names)[[2]]
+
+#    - the next column names are taken from features.txt with some reformatting
+tmp_names <- rbind(my_headers, header_names)[[2]]
+tmp_names <- sapply(tmp_names, function(x) {
+        x <- gsub("[[:punct:]]", "",     x)
+        x <- gsub("mean", "Mean", x)
+        x <- gsub("std",  "Sd",   x)
+})
+
+#    - apply those names as headers
+names(data) <- tmp_names
 
 # 2) Extracts only the measurements on the mean and standard deviation for each
 #    measurement.
 #     - only measurements: ^t
-#     - only mean and standard deviation: std|mean
-#     - plus activity column
-data_sub <- data[, grepl("(^t.*(std|mean))|(activity|subject)", names(data))]
+#       (starts with t, because f... is calculated based on t... values)
+#     - only mean and standard deviation: Sd|Mean
+#     - plus activity and subject column
+data_sub <- data[, grepl("(^t.*(Sd|Mean))|(activity|subject)", names(data))]
 
 # 3) Uses descriptive activity names to name the activities in the data set
 data_sub$activity<-factor(data_sub$activity, labels=activity_names[,2])
