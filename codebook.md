@@ -44,8 +44,6 @@ for each measurement.
 The following 7 steps were performed in converting the original data set into
 the tidy data set:
 
-This section describes the steps performed in run_analysis.R.
-
 1. Download & Extract Data
 
   This section is optional and includes the steps to download and unzip the

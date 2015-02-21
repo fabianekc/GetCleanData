@@ -32,6 +32,7 @@ my_headers <- data.frame(V1=c(0, 0),V2=c("subject", "activity"))
 tmp_names <- rbind(my_headers, header_names)[[2]]
 tmp_names <- sapply(tmp_names, function(x) {
         x <- gsub("[[:punct:]]", "",     x)
+        x <- gsub("BodyBody", "Body", x)
         x <- gsub("mean", "Mean", x)
         x <- gsub("std",  "Sd",   x)
 })
@@ -41,11 +42,9 @@ names(data) <- tmp_names
 
 # 2) Extracts only the measurements on the mean and standard deviation for each
 #    measurement.
-#     - only measurements: ^t
-#       (starts with t, because f... is calculated based on t... values)
 #     - only mean and standard deviation: Sd|Mean
-#     - plus activity and subject column
-data_sub <- data[, grepl("(^t.*(Sd|Mean))|(activity|subject)", names(data))]
+#     - plus activity and subject columns
+data_sub <- data[, grepl("Sd|Mean|activity|subject", names(data))]
 
 # 3) Uses descriptive activity names to name the activities in the data set
 data_sub$activity<-factor(data_sub$activity, labels=activity_names[,2])
